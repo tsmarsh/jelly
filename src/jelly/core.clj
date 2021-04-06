@@ -1,7 +1,7 @@
 (ns jelly.core
   (:require [clojure.data.csv :as csv]
             [clojure.java.io :as io]
-            [clojure.data.json :as json]))
+            [jelly.db :as db]))
 
 (defn csv-data->maps [csv-data]
   (map zipmap
@@ -16,17 +16,12 @@
 
 (def base-data (csv-data->maps csv-data))
 
-(defn create-idx [coll idx]
-  (reduce (fn [index item]
-            (assoc index (idx item) item)) {} coll))
-
 
 (defn find-by [kword id coll]
   (->> coll
        (filter #(= (kword %) id))
        first))
 
-(defn find-by-id [id coll]
-  (find-by :id id coll))
 
+(db/build-db base-data)
 
