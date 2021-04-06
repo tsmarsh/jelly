@@ -34,4 +34,4 @@
               {:fname "./data/votes/" :data (:db/votes db)}]]
 
     (map (fn [{fname :fname d :data}] (create-files fname d)) data)
-    #_(create-district-files (:db/districts db))))
+    (create-district-files (:db/districts db))))
